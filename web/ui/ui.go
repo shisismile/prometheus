@@ -18,7 +18,6 @@ package ui
 import (
 	"net/http"
 	"os"
-	"path"
 	"path/filepath"
 	"strings"
 
@@ -46,7 +45,7 @@ var Assets http.FileSystem = func() http.FileSystem {
 	}
 
 	static := filter.Keep(
-		http.Dir(path.Join(assetsPrefix, "static")),
+		http.Dir(filepath.Join(assetsPrefix, "static")),
 		func(path string, fi os.FileInfo) bool {
 			return fi.IsDir() ||
 				(!strings.HasSuffix(path, "map.js") &&
@@ -57,7 +56,7 @@ var Assets http.FileSystem = func() http.FileSystem {
 	)
 
 	templates := filter.Keep(
-		http.Dir(path.Join(assetsPrefix, "templates")),
+		http.Dir(filepath.Join(assetsPrefix, "templates")),
 		func(path string, fi os.FileInfo) bool {
 			return fi.IsDir() || strings.HasSuffix(path, ".html")
 		},
